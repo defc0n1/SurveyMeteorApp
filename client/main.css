@@ -1,0 +1,23 @@
+/* CSS declarations go here */
+.navbar, .btn, .form-control, .panel {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.survey-items > td {
+    text-align: center;
+}
+
+.survey-items > .survey-items-text {
+    vertical-align: middle;
+}
+
+.survey-items > td > button > i {
+    font-size: 2em;
+}
+
+.thumb {
+    width: 100px;
+    height: 100px;
+}
