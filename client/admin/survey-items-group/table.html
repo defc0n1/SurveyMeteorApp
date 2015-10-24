@@ -1,6 +1,6 @@
 <template name="itemGroupTable">
     <h3 class="text-info">Group List: {{surveyItemGroupsCount}}</h3>
-    {{> Paginator_UI surveyItems}}
+    {{> Paginator_UI surveyItemGroups}}
     <br/>
 
     <div class="table-responsive">
@@ -18,7 +18,7 @@
                         {{groupName}}
                     </td>
                     <td class="col-md-2 survey-items-text">
-                        <button class="btn btn-link"><i class="fa fa-times"></i></button>
+                        <button class="btn btn-link deleteItem" data-id="{{_id}}"><i class="fa fa-times"></i></button>
                     </td>
                 </tr>
             {{/each}}

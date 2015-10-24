@@ -4,6 +4,9 @@
 itemPaginator = new Paginator(SurveyItems);
 itemGroupsPaginator = new Paginator(SurveyItemGroups);
 
+Template.itemForm.onCreated(function () {
+    Session.set('errorMsg',undefined);
+});
 Template.itemForm.events({
     'submit form#addSurveyItem': function (event, template) {
         event.preventDefault();
@@ -12,13 +15,20 @@ Template.itemForm.events({
         var itemGroup = event.target.itemGroup.value;
         Images.insert(file, function (err, obj) {
             if (err !== undefined) {
-                throw Meteor.Error('upload-fail', "File upload failed");
+                Session.set('errorMsg', "File upload failed");
+                throw Meteor.Error(500, 'upload-fail', "File upload failed");
             } else {
-                Meteor.call('addSurveyItem', obj._id, itemGroup);
+                Meteor.call('addSurveyItem', obj._id, itemGroup, function (err) {
+                    if (err === undefined) {
+                        event.target.reset();
+
+                        Session.set('errorMsg',undefined);
+                    } else {
+                        Session.set('errorMsg', err.details);
+                    }
+                });
             }
         });
-
-        event.target.reset();
     }
 });
 Template.itemForm.helpers({
@@ -57,11 +67,27 @@ Template.itemTable.helpers({
     }
 });
 
+Template.itemGroupForm.onCreated(function () {
+    Session.set('errorMsg',undefined);
+});
+
 Template.itemGroupForm.events({
-    'submit form#addItemGroup': function (event, template) {
+    'submit form#addSurveyItemGroup': function (event, template) {
         event.preventDefault();
-        Method.call('addItemGroup',event.target.groupName.value);
-        event.target.reset();
+        Meteor.call('addItemGroup', event.target.groupName.value, function (err) {
+            if (err === undefined) {
+                event.target.reset();
+                Session.set('errorMsg',undefined);
+            } else {
+                Session.set('errorMsg', err.details);
+            }
+        });
+    }
+});
+
+Template.itemGroupForm.helpers({
+    errorMsg: function () {
+        return Session.get('errorMsg');
     }
 });
 
@@ -71,5 +97,16 @@ Template.itemGroupTable.helpers({
     },
     surveyItemGroupsCount: function () {
         return SurveyItemGroups.find({}).count();
+    }
+});
+
+Template.itemGroupTable.events({
+    'click .deleteItem': function (event) {
+        var id = event.target.dataset.id;
+        if (id === undefined) {
+            id = event.target.parentNode.dataset.id;
+        }
+
+        Meteor.call('deleteSurveyItemGroup', id);
     }
 });

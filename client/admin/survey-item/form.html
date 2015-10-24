@@ -1,7 +1,9 @@
 <template name="itemForm">
     <h3 class="text-info">Add Survey Item</h3>
     <br/>
-
+    {{#if errorMsg}}
+        <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+    {{/if}}
     <form id="addSurveyItem" method="POST" class="form-horizontal">
         <div class="form-group">
             <label for="itemGroup" class="col-sm-3 control-label">Item Group</label>

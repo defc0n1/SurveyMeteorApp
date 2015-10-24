@@ -1,13 +1,15 @@
 <template name="itemGroupForm">
     <h3 class="text-info">Add Survey Item Group</h3>
     <br/>
-
+    {{#if errorMsg}}
+        <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+    {{/if}}
     <form id="addSurveyItemGroup" method="POST" class="form-horizontal">
         <div class="form-group">
-            <label for="itemGroup" class="col-sm-3 control-label">Item Image</label>
+            <label for="groupName" class="col-sm-3 control-label">Item Image</label>
 
             <div class="col-sm-9">
-                <input type="text" name="itemGroup" id="itemGroup" class="form-control" required/>
+                <input type="text" name="groupName" id="groupName" class="form-control" required/>
             </div>
         </div>
 
