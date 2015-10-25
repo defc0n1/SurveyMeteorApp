@@ -5,7 +5,7 @@ itemPaginator = new Paginator(SurveyItems);
 itemGroupsPaginator = new Paginator(SurveyItemGroups);
 
 Template.itemForm.onCreated(function () {
-    Session.set('errorMsg',undefined);
+    Session.set('errorMsg', undefined);
 });
 Template.itemForm.events({
     'submit form#addSurveyItem': function (event, template) {
@@ -22,7 +22,7 @@ Template.itemForm.events({
                     if (err === undefined) {
                         event.target.reset();
 
-                        Session.set('errorMsg',undefined);
+                        Session.set('errorMsg', undefined);
                     } else {
                         Session.set('errorMsg', err.details);
                     }
@@ -48,7 +48,7 @@ Template.itemTable.events({
 });
 Template.itemTable.helpers({
     surveyItems: function () {
-        return itemPaginator.find({}, {itemsPerPage: 1});
+        return itemPaginator.find({}, {itemsPerPage: 10});
     },
     surveyItemsCount: function () {
         return SurveyItems.find({}).count();
@@ -68,7 +68,7 @@ Template.itemTable.helpers({
 });
 
 Template.itemGroupForm.onCreated(function () {
-    Session.set('errorMsg',undefined);
+    Session.set('errorMsg', undefined);
 });
 
 Template.itemGroupForm.events({
@@ -77,7 +77,7 @@ Template.itemGroupForm.events({
         Meteor.call('addItemGroup', event.target.groupName.value, function (err) {
             if (err === undefined) {
                 event.target.reset();
-                Session.set('errorMsg',undefined);
+                Session.set('errorMsg', undefined);
             } else {
                 Session.set('errorMsg', err.details);
             }

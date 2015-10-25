@@ -21,3 +21,8 @@
     width: 100px;
     height: 100px;
 }
+
+.blackout {
+    opacity: 0 !important;
+    background-color: black !important;
+}
