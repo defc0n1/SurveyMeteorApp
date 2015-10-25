@@ -10,12 +10,14 @@ Template.surveyWelcome.events({
         event.preventDefault();
         Session.set('respondent', event.target.respondent.value);
         Meteor.call('getRandomItem', event.target.respondent.value, function (err, data) {
-            if (err === undefined) {
+            if (data !== undefined) {
+                Session.set('timer',18);
                 Session.set('currentItem', data);
+                Router.go("/survey");
+            }else{
+                Router.go("/survey-finished")
             }
         });
-
-        Router.go("/survey");
     }
 });
 

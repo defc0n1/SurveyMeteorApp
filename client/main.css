@@ -1,19 +1,16 @@
 /* CSS declarations go here */
-.navbar, .btn, .form-control, .panel {
+.navbar, .btn, .form-control, .panel, .panel-heading{
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
 }
 
-.survey-items > td {
+.table-center > td {
     text-align: center;
-}
-
-.survey-items > .survey-items-text {
     vertical-align: middle;
 }
 
-.survey-items > td > button > i {
+.table-center > td > button > i {
     font-size: 2em;
 }
 
@@ -25,4 +22,8 @@
 .blackout {
     opacity: 0 !important;
     background-color: black !important;
+}
+
+.perImage{
+    max-height:500px !important;
 }
